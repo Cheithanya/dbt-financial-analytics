@@ -1,15 +1,26 @@
-Welcome to your new dbt project!
+# dbt Financial Analytics Project
 
-### Using the starter project
+## Overview
+This project demonstrates an end-to-end dbt implementation for financial transaction analytics using BigQuery.
 
-Try running the following commands:
-- dbt run
-- dbt test
+## Tech Stack
+- dbt Core
+- Google BigQuery
+- SQL
+- GitHub
 
+## Data Model
+- **Staging:** Cleaned and standardized transaction data
+- **Intermediate:** Monthly customer aggregations
+- **Marts:** Incremental fact tables and customer risk analytics
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+## Key Features
+- Incremental models for cost-efficient processing
+- dbt tests for data quality
+- Modular and scalable model design
+- Analytics-ready marts for BI tools
+
+## Use Cases
+- Customer risk segmentation
+- Financial inflow/outflow analysis
+- Account performance monitoring
