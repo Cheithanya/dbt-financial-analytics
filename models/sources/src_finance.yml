@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: financial_raw
+    database: dbt-hands-on-project
+    schema: financial_raw
+    tables:
+      - name: transactions
+        description: Raw transaction data

@@ -1,0 +1,72 @@
+# dbt + BigQuery Debugging Playbook (Windows)
+
+## Environment
+- OS: Windows 10
+- Python: 3.11
+- dbt-core: 1.11.6
+- dbt-bigquery: 1.11.0
+- Auth: Service Account
+
+---
+
+## Problem 1: OAuth JWT Error
+**Error**
+invalid_grant: Invalid JWT Signature
+
+**Root Cause**
+- Google OAuth + ADC unstable on Windows
+- Cached / corrupted tokens
+
+**Fix**
+- Avoid OAuth
+- Use Service Account authentication
+
+---
+
+## Problem 2: Profile Loaded but Connection Fails
+**Error**
+Profile should not be None
+
+**Root Cause**
+- Profile name mismatch
+- YAML indentation issues
+- dbt init edge cases
+
+**Fix**
+- Minimal profiles.yml
+- Manual validation
+
+---
+
+## Problem 3: NoneType object has no attribute 'close'
+**Error**
+'NoneType' object has no attribute 'close'
+
+**Root Cause**
+- dbt-bigquery 1.11.0 bug on Windows
+- Optional configs (priority, retries) cause adapter crash
+- Cached dbt config persisted after dbt init
+
+**Fix**
+- Remove ALL optional BigQuery configs
+- Delete dbt cache folders
+- Manually recreate profiles.yml
+- Use threads: 1
+
+---
+
+## Final Working Config
+
+### profiles.yml
+```yaml
+financial_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: dbt-hands-on-project
+      dataset: financial_raw
+      location: US
+      threads: 1
+      keyfile: C:/Users/cheit/dbt-sa.json
